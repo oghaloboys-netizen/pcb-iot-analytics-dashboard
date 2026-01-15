@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { 
   Wifi, 
   Usb, 
@@ -12,9 +11,7 @@ import {
   Activity, 
   CheckCircle, 
   XCircle, 
-  Play, 
   Square,
-  RefreshCw,
   Trash2
 } from 'lucide-react';
 import { TimeSeriesChart } from '@/components/charts/TimeSeriesChart';
@@ -92,7 +89,7 @@ export default function ESP32Devices() {
   };
 
   // Read data from serial port
-  const readSerialData = async (deviceId: string, port: SerialPort, reader: ReadableStreamDefaultReader) => {
+  const readSerialData = async (deviceId: string, _port: SerialPort, reader: ReadableStreamDefaultReader) => {
     const decoder = new TextDecoder();
     let buffer = '';
 

@@ -5,40 +5,6 @@ interface ChatHistory {
   content: string;
 }
 
-// Build context from metrics
-function buildMetricsContext(metricsContext?: any): string {
-  if (!metricsContext) return '';
-  
-  let context = '\n\nCurrent System Metrics:\n';
-  
-  if (metricsContext.summary) {
-    context += `- Total PCBs: ${metricsContext.summary.totalPCBs}\n`;
-    context += `- Total IoT Devices: ${metricsContext.summary.totalIoTDevices}\n`;
-    context += `- Online Devices: ${metricsContext.summary.onlineDevices}\n`;
-    context += `- Average Temperature: ${metricsContext.summary.averageTemperature?.toFixed(1)}°C\n`;
-    context += `- Average Throughput: ${metricsContext.summary.averageThroughput?.toFixed(2)} Mbps\n`;
-    context += `- Critical Alerts: ${metricsContext.summary.criticalAlerts}\n`;
-  }
-  
-  if (metricsContext.pcbMetrics) {
-    context += `\nPCB Metrics:\n`;
-    context += `- Temperature: ${metricsContext.pcbMetrics.temperature?.toFixed(1)}°C\n`;
-    context += `- Voltage: ${metricsContext.pcbMetrics.voltage?.toFixed(2)}V\n`;
-    context += `- Current: ${metricsContext.pcbMetrics.current?.toFixed(2)}A\n`;
-    context += `- Signal Integrity: ${metricsContext.pcbMetrics.signalIntegrity?.toFixed(1)}%\n`;
-  }
-  
-  if (metricsContext.iotDevices) {
-    context += `\nIoT Devices:\n`;
-    context += `- Total: ${metricsContext.iotDevices.total}\n`;
-    context += `- Online: ${metricsContext.iotDevices.online}\n`;
-    context += `- Avg Throughput: ${metricsContext.iotDevices.avgThroughput?.toFixed(2)} Mbps\n`;
-    context += `- Avg Latency: ${metricsContext.iotDevices.avgLatency?.toFixed(0)} ms\n`;
-  }
-  
-  return context;
-}
-
 // ESP32 Knowledge Base
 const ESP32_KNOWLEDGE = {
   basics: {
@@ -88,7 +54,6 @@ export async function getESP32AIResponse(
   metricsContext?: any
 ): Promise<string> {
   const message = userMessage.toLowerCase().trim();
-  const conversationText = conversationHistory.slice(-5).map(m => m.content.toLowerCase()).join(' ');
   
   // ESP32-specific queries
   if (message.includes('esp32') || message.includes('esp 32')) {
@@ -151,7 +116,6 @@ export async function getESP32AIResponse(
   }
   
   // Combine ESP32 knowledge with system metrics
-  const metricsInfo = buildMetricsContext(metricsContext);
   const hasMetrics = metricsContext && (metricsContext.summary || metricsContext.pcbMetrics || metricsContext.iotDevices);
   
   // General conversation that references ESP32 context

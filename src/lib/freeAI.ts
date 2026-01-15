@@ -127,8 +127,6 @@ function getIntelligentResponse(
   
   // Analyze conversation context
   const hasDiscussedTemperature = lastFewMessages.includes('temp') || lastFewMessages.includes('temperature');
-  const hasDiscussedDevices = lastFewMessages.includes('device') || lastFewMessages.includes('iot');
-  const hasDiscussedVoltage = lastFewMessages.includes('voltage') || lastFewMessages.includes('volt');
   
   // Context-aware responses
   if (message.includes('temperature') || message.includes('temp')) {

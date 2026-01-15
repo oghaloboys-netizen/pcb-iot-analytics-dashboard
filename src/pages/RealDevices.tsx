@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   Wifi,
   Usb,
@@ -115,7 +114,7 @@ export default function RealDevices() {
   };
 
   // Read serial data
-  const readSerialData = async (deviceId: string, port: SerialPort, reader: ReadableStreamDefaultReader) => {
+  const readSerialData = async (deviceId: string, _port: SerialPort, reader: ReadableStreamDefaultReader) => {
     const decoder = new TextDecoder();
     let buffer = '';
 
@@ -229,7 +228,7 @@ export default function RealDevices() {
   };
 
   // Simulate MQTT data (replace with real MQTT client)
-  const simulateMQTTData = (deviceId: string, topic: string, deviceType: DeviceType) => {
+  const simulateMQTTData = (deviceId: string, _topic: string, deviceType: DeviceType) => {
     const interval = setInterval(() => {
       setDevices((prev) => {
         const device = prev.find(d => d.id === deviceId);
@@ -294,7 +293,7 @@ export default function RealDevices() {
   };
 
   // Parse device data based on device type
-  const parseDeviceData = (line: string, deviceType?: DeviceType): any => {
+  const parseDeviceData = (line: string, _deviceType?: DeviceType): any => {
     const data: any = {};
     
     // Common patterns
